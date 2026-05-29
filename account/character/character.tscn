@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dg5spcjspp4oh"]
 
-[ext_resource type="Script" uid="uid://dkuog1vifacpm" path="res://character/character.gd" id="1_1l1n4"]
-[ext_resource type="Texture2D" uid="uid://5hstkcghp484" path="res://character/women1.png" id="2_ugqs2"]
+[ext_resource type="Script" uid="uid://dkuog1vifacpm" path="res://account/character/character.gd" id="1_1l1n4"]
+[ext_resource type="Texture2D" uid="uid://5hstkcghp484" path="res://account/character/women1.png" id="2_ugqs2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1l1n4"]
 

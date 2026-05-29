@@ -1,6 +1,10 @@
 extends TileMapLayer
 
+signal loading_progress_changed(value: float)
+signal loading_finished()
+
 var max_parrallel = 50
+var total_maps
 var pending_maps: Array = []
 var active_requests := 0
 var map_resource_uri = "https://www.artifactsmmo.com/images/maps/"
@@ -8,6 +12,8 @@ var map_layout_info_api = "https://api.artifactsmmo.com/maps?layer=overworld&siz
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	set_process(false)
+	set_physics_process(false)
 	load_map_info()
 
 func load_map_info():
@@ -26,9 +32,14 @@ func load_map_info():
 		return
 	print("Raw overworld map has been fetched")
 	pending_maps = content["data"]
+	total_maps = pending_maps.size()
 	add_to_queue()
 
 func add_to_queue():
+	loading_progress_changed.emit(1-total_maps/pending_maps.size())
+	if active_requests == 0 and pending_maps.size() == 0:
+		loading_finished.emit()
+		return
 	while active_requests < max_parrallel and pending_maps.size() > 0:
 		var map = pending_maps.pop_front()
 		var http := HTTPRequest.new()

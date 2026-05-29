@@ -5,7 +5,7 @@ var websocket_url = "wss://realtime.artifactsmmo.com"
 # Our WebSocketClient instance.
 var socket = WebSocketPeer.new()
 
-var init_message =  "\"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Imt5bGxpYW4ucGVycmluQGdtYWlsLmNvbSIsInBhc3N3b3JkX2NoYW5nZWQiOm51bGx9.n0GELlDBCZQVR8IbLcVYrzlFLe5pczmrdGmwptMkSnY\",		\"subscriptions\": [\"event_spawn\", \"event_removed\", \"grandexchange_neworder\", \"grandexchange_sell\", \"achievement_unlocked\", \"test\", \"account_log\"]}"
+var init_message =  {"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Imt5bGxpYW4ucGVycmluQGdtYWlsLmNvbSIsInBhc3N3b3JkX2NoYW5nZWQiOm51bGx9.n0GELlDBCZQVR8IbLcVYrzlFLe5pczmrdGmwptMkSnY", "subscriptions": ["event_spawn", "event_removed", "achievement_unlocked", "test", "account_log"]}
 
 func _ready():
 	# Initiate connection to the given URL.
@@ -18,6 +18,7 @@ func _ready():
 		# Send data.
 		print("> Sending init packet.")
 		socket.send_text(str(init_message))
+		set_process(true)
 	else:
 		push_error("Unable to connect.")
 		set_process(false)
@@ -50,7 +51,5 @@ func _process(_delta):
 	# `WebSocketPeer.STATE_CLOSED` means the connection has fully closed.
 	# It is now safe to stop polling.
 	elif state == WebSocketPeer.STATE_CLOSED:
-		# The code will be `-1` if the disconnection was not properly notified by the remote peer.
-		var code = socket.get_close_code()
-		print("WebSocket closed with code: %d. Clean: %s" % [code, code != -1])
-		set_process(false) # Stop processing.
+		print("Connexion fermée. Code:", socket.get_close_code(), " Reason:", socket.get_close_reason())
+		set_process(false)

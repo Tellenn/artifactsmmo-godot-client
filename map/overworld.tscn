@@ -5,8 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://cb5noek7a8i4g" path="res://map/overworld/spawn 0-0.png" id="3_gd8rg"]
 [ext_resource type="Texture2D" uid="uid://dyq54wrecgl8q" path="res://map/overworld/forest_3.png" id="4_0kf2a"]
 [ext_resource type="Script" uid="uid://kjfgr4psnmkx" path="res://map/overworld.gd" id="5_gd8rg"]
-[ext_resource type="PackedScene" uid="uid://dg5spcjspp4oh" path="res://character/character.tscn" id="5_wrs6h"]
-[ext_resource type="Script" uid="uid://dpkmcms0n2tdo" path="res://map/account.gd" id="6_0kf2a"]
+[ext_resource type="PackedScene" uid="uid://dg5spcjspp4oh" path="res://account/character/character.tscn" id="5_wrs6h"]
+[ext_resource type="Script" uid="uid://dpkmcms0n2tdo" path="res://account/account.gd" id="6_0kf2a"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pj8vx"]
 resource_name = "Chicken"
