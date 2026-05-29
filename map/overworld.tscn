@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://ytr33ck0rb31"]
+
+[ext_resource type="Texture2D" uid="uid://beh72i6shmti8" path="res://map/overworld/city 0-1.png" id="1_34goc"]
+[ext_resource type="Texture2D" uid="uid://ci071rep4u3kd" path="res://map/overworld/city 1-1.png" id="2_wrs6h"]
+[ext_resource type="Texture2D" uid="uid://cb5noek7a8i4g" path="res://map/overworld/spawn 0-0.png" id="3_gd8rg"]
+[ext_resource type="Texture2D" uid="uid://dyq54wrecgl8q" path="res://map/overworld/forest_3.png" id="4_0kf2a"]
+[ext_resource type="Script" uid="uid://kjfgr4psnmkx" path="res://map/overworld.gd" id="5_gd8rg"]
+[ext_resource type="PackedScene" uid="uid://dg5spcjspp4oh" path="res://character/character.tscn" id="5_wrs6h"]
+[ext_resource type="Script" uid="uid://dpkmcms0n2tdo" path="res://map/account.gd" id="6_0kf2a"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pj8vx"]
+resource_name = "Chicken"
+texture = ExtResource("1_34goc")
+texture_region_size = Vector2i(224, 224)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7tun1"]
+resource_name = "Tailor"
+texture = ExtResource("2_wrs6h")
+texture_region_size = Vector2i(224, 224)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_886pb"]
+resource_name = "Spawn"
+texture = ExtResource("3_gd8rg")
+texture_region_size = Vector2i(224, 224)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ror48"]
+resource_name = "Forest 3"
+texture = ExtResource("4_0kf2a")
+texture_region_size = Vector2i(224, 224)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_jskoo"]
+tile_size = Vector2i(224, 224)
+sources/5 = SubResource("TileSetAtlasSource_pj8vx")
+sources/6 = SubResource("TileSetAtlasSource_7tun1")
+sources/8 = SubResource("TileSetAtlasSource_886pb")
+sources/9 = SubResource("TileSetAtlasSource_ror48")
+
+[node name="World map" type="Node2D" unique_id=2106827703]
+
+[node name="Overworld" type="TileMapLayer" parent="." unique_id=927668895]
+tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 5, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 6, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0)
+tile_set = SubResource("TileSet_jskoo")
+script = ExtResource("5_gd8rg")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="Overworld" unique_id=1986289274]
+
+[node name="Account" type="Node" parent="." unique_id=1542665387]
+script = ExtResource("6_0kf2a")
+
+[node name="Character1" parent="Account" unique_id=293789640 instance=ExtResource("5_wrs6h")]
+
+[node name="Camera2D" type="Camera2D" parent="Account/Character1" unique_id=1858067516]
+position = Vector2(110, 178)
