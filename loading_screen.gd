@@ -1,44 +1,45 @@
 extends Control
 
-const OVERWORLD_PATH := "res://map/overworld.tscn"
+const OVERWORLD_PATH := "res://map/worldmap.tscn"
 var _progress := []
-var _overworld_instance: Node = null
+var _world_map_instance: Node = null
 var progress_bar
 
 func _ready():
+	print("Initializing loading")
 	visible = true
 	progress_bar = ProgressBar.new()
 	self.add_child(progress_bar)
 	progress_bar.value = 0
 	progress_bar.show_percentage = true
 	progress_bar.indeterminate = false
+	progress_bar.custom_minimum_size = Vector2(300, 30)
+	progress_bar.set_anchors_and_offsets_preset(
+		Control.PRESET_TOP_LEFT,
+		Control.PRESET_MODE_KEEP_SIZE
+	)
+	ResourceLoader.load_threaded_request(OVERWORLD_PATH)
 
 func _process(_delta):
 	var status := ResourceLoader.load_threaded_get_status(OVERWORLD_PATH, _progress)
-
+	
 	if status == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
 		progress_bar.value = _progress[0] * 30.0
 		return
-
+	
 	if status == ResourceLoader.THREAD_LOAD_LOADED:
 		var packed: PackedScene = ResourceLoader.load_threaded_get(OVERWORLD_PATH)
-		_overworld_instance = packed.instantiate()
-		get_tree().current_scene.add_child(_overworld_instance)
-
-		if _overworld_instance.has_signal("loading_progress_changed"):
-			_overworld_instance.loading_progress_changed.connect(_on_world_progress_changed)
-		if _overworld_instance.has_signal("loading_finished"):
-			_overworld_instance.loading_finished.connect(_on_world_loading_finished)
-
-		if _overworld_instance.has_method("start_loading"):
-			_overworld_instance.start_loading()
-
+		_world_map_instance = packed.instantiate()
+		if _world_map_instance.has_signal("loading_progress_changed"):
+			_world_map_instance.loading_progress_changed.connect(_on_world_progress_changed)
+		if _world_map_instance.has_signal("loading_finished"):
+			_world_map_instance.loading_finished.connect(_on_world_loading_finished)
+		_world_map_instance.visible = false
+		self.add_child(_world_map_instance)
 		set_process(false)
 
 func _on_world_progress_changed(value: float) -> void:
 	progress_bar.value = 30.0 + value * 70.0
 
 func _on_world_loading_finished() -> void:
-	var tween := create_tween()
-	tween.tween_property(self, "modulate:a", 0.0, 0.25)
-	tween.finished.connect(queue_free)
+	_world_map_instance.visible = true
