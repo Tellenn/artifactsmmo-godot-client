@@ -7,16 +7,38 @@ const GRID_SIZE = 224
 func _ready() -> void:
 	pass # Replace with function body.
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	var direction = get_input_direction()
 	if direction.is_zero_approx():
 		return
-	move_to(direction)
+	position = position + direction
 
+# --- existing variables ---
+var drag_speed: float = 1.0  # adjust if needed
+
+# --- drag state ---
+var _dragging: bool = false
+var _drag_start_mouse: Vector2
+var _drag_start_cam: Vector2
+
+# For click & move
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			if event.pressed:
+				_dragging = true
+				_drag_start_mouse = get_viewport().get_mouse_position()
+				_drag_start_cam = position
+			else:
+				_dragging = false
+
+	if event is InputEventMouseMotion and _dragging:
+		var delta = get_viewport().get_mouse_position() - _drag_start_mouse
+		position = _drag_start_cam - delta * drag_speed
+
+# For WASD movement
 func move_to(direction: Vector2):
-	
 	set_process(false)
 	var tween := create_tween()
 	tween.set_ease(Tween.EASE_IN)
