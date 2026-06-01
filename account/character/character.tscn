@@ -1,17 +1,11 @@
 [gd_scene format=3 uid="uid://dg5spcjspp4oh"]
 
 [ext_resource type="Script" uid="uid://dkuog1vifacpm" path="res://account/character/character.gd" id="1_1l1n4"]
-[ext_resource type="Texture2D" uid="uid://5hstkcghp484" path="res://account/character/women1.png" id="2_ugqs2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1l1n4"]
 
 [node name="Character" type="CharacterBody2D" unique_id=77478956]
 script = ExtResource("1_1l1n4")
-
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1840316162]
-position = Vector2(111, 176)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_ugqs2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1944384197]
 position = Vector2(110, 178)

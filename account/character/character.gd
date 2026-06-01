@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 const GRID_SIZE = 224
 const SECONDS_TO_MOVE_TO_A_TILE = 5
+var name_label
+var sprite2D
 
 var character_name : String
 var account : String
@@ -97,15 +99,22 @@ var socket = WebSocketPeer.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
+	name_label = Label.new()
+	#Not setting the name as it's not setup yet. See update()
+	name_label.position = Vector2(100, 200)
+	name_label.z_index = 1
+	name_label.add_theme_color_override("font_color", Color.WHITE)
+	name_label.add_theme_font_size_override("font_size", 8)
+	add_child(name_label)
+	
+	sprite2D = Sprite2D.new()
+	sprite2D.position = Vector2(112,162)
+	sprite2D.scale = Vector2(0.5,0.5)
+	add_child(sprite2D)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	var direction = get_input_direction()
-	if direction.is_zero_approx():
-		return
-		
-	#move_to(direction)
+	pass
 	
 func update(data: Dictionary) -> void:
 	character_name   = data.get("name", "Unknown")
@@ -193,6 +202,8 @@ func update(data: Dictionary) -> void:
 	inventory_max_items  = data.get("inventory_max_items", 0)
 	inventory= data.get("inventory", [])
 	print("Personnage mis à jour : %s (niveau %d)" % [character_name, level])
+	name_label.text = character_name
+	_load_sprite(skin)
 	update_position()
 
 func update_position():
@@ -212,10 +223,12 @@ func move_to(target_cell: Vector2):
 func move_using_path(path : Array[Vector2]):
 	for cell in path:
 		await move_to(cell)
-	
 
-func get_input_direction() -> Vector2:
-	return Vector2(
-		Input.get_action_strength("Right") - Input.get_action_strength("Left"),
-		Input.get_action_strength("Down") - Input.get_action_strength("Up")
+
+func _load_sprite(sprite_name) -> void:
+	var url = "https://www.artifactsmmo.com/images/characters/"+sprite_name+".png"
+	
+	AssetCache.get_sprite(url, func(texture: ImageTexture):
+		sprite2D.texture = texture
 	)
+	

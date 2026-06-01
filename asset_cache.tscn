@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dgnkuvr6pjqww"]
+
+[ext_resource type="Script" uid="uid://b0dplbleu7qdl" path="res://asset_cache.gd" id="1_dpn8e"]
+
+[node name="AssetCache" type="Node" unique_id=18439688]
+script = ExtResource("1_dpn8e")
