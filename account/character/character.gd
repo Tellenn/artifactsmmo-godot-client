@@ -215,10 +215,19 @@ func move_to(target_cell: Vector2):
 	
 	var end = target_cell * GRID_SIZE
 	
+	# TODO : It's not the correct position, but you know (oldX, oldY, oldL, x, y, l, characterName)
+	var position_in_cell = CharacterPositionCache.move_character_to(x,y,layer, target_cell.x, target_cell.y, layer, character_name)
+	var cell_offset = CharacterPositionCache.get_offset_by_cell_pos(position_in_cell)
+	print(str(position_in_cell)+ "th in cell. Offsetting by "+str(cell_offset))
+	end += cell_offset
 	var tween := create_tween()
 	tween.set_ease(Tween.EASE_IN)
 	tween.tween_property(self, "position", end, SECONDS_TO_MOVE_TO_A_TILE)
 	await tween.finished
+	@warning_ignore("narrowing_conversion")
+	x = target_cell.x
+	@warning_ignore("narrowing_conversion")
+	y = target_cell.y
 
 func move_using_path(path : Array[Vector2]):
 	for cell in path:

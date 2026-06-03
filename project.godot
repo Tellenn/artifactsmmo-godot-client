@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 AssetCache="*uid://dgnkuvr6pjqww"
+CharacterPositionCache="*uid://cr70mm58p5cec"
 
 [display]
 

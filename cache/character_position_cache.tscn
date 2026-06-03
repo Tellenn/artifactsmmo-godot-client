@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cr70mm58p5cec"]
+
+[ext_resource type="Script" uid="uid://8gcvvi5okmpo" path="res://cache/character_position_cache.gd" id="1_lvsks"]
+
+[node name="CharacterPositionCache" type="Node" unique_id=1048752666]
+script = ExtResource("1_lvsks")
