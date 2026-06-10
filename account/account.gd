@@ -92,5 +92,5 @@ func _process(_delta):
 	# `WebSocketPeer.STATE_CLOSED` means the connection has fully closed.
 	# It is now safe to stop polling.
 	elif state == WebSocketPeer.STATE_CLOSED:
-		print("Connexion fermée. Code:", socket.get_close_code(), " Reason:", socket.get_close_reason())
+		print("Connection closed. Code:", socket.get_close_code(), " Reason:", socket.get_close_reason())
 		set_process(false)

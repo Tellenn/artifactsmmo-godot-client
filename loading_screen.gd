@@ -52,3 +52,4 @@ func _on_world_loading_finished() -> void:
 	camera.process_mode = Node.PROCESS_MODE_INHERIT
 	get_tree().current_scene = _world_map_instance
 	_world_map_instance.visible = true
+	queue_free()

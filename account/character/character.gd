@@ -201,7 +201,7 @@ func update(data: Dictionary) -> void:
 	task_total   = data.get("task_total", 0)
 	inventory_max_items  = data.get("inventory_max_items", 0)
 	inventory= data.get("inventory", [])
-	print("Personnage mis à jour : %s (niveau %d)" % [character_name, level])
+	print("Character updated : %s (level %d)" % [character_name, level])
 	name_label.text = character_name
 	_load_sprite(skin)
 	update_position()
