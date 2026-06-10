@@ -34,12 +34,21 @@ func _process(_delta):
 			_world_map_instance.loading_progress_changed.connect(_on_world_progress_changed)
 		if _world_map_instance.has_signal("loading_finished"):
 			_world_map_instance.loading_finished.connect(_on_world_loading_finished)
+		
+		# In order to avoid the camera being moveable.
+		var camera = _world_map_instance.get_node("Camera2D")
+		camera.process_mode = Node.PROCESS_MODE_DISABLED
+		
+		# To do right now to all the _process to work
+		get_tree().root.add_child(_world_map_instance)
 		_world_map_instance.visible = false
-		self.add_child(_world_map_instance)
 		set_process(false)
 
 func _on_world_progress_changed(value: float) -> void:
 	progress_bar.value = 30.0 + value * 70.0
 
 func _on_world_loading_finished() -> void:
+	var camera = _world_map_instance.get_node("Camera2D")
+	camera.process_mode = Node.PROCESS_MODE_INHERIT
+	get_tree().current_scene = _world_map_instance
 	_world_map_instance.visible = true
