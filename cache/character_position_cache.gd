@@ -22,11 +22,7 @@ func add_new_character(x,y,l, characterName):
 func move_character_to(oldX, oldY, oldL, x, y, l, characterName) -> int :
 	var oldKey = create_key(oldX, oldY, oldL)
 	var newKey = create_key(x,y,l)
-	#This always return null. It's not something we expect.
-	print(cache)
-	print(oldKey)
 	if cache.get(oldKey) != null:
-		print("removing "+characterName+" from the cell key "+oldKey)
 		cache[oldKey].erase(cache[oldKey].find_key(characterName))
 	var k = 1
 	if cache.get(newKey) == null:
