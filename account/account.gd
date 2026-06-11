@@ -6,6 +6,9 @@ const account_character_url = "https://api.artifactsmmo.com/accounts/Tellenn/cha
 const websocket_url = "wss://realtime.artifactsmmo.com"
 var characters : Dictionary = {}
 
+@onready var party_container : HBoxContainer = $PartyLayer/PartyHContainer
+const CHARACTER_CARD = preload("res://account/character/character_party_element.tscn")
+
 # Our WebSocketClient instance.
 var socket = WebSocketPeer.new()
 
@@ -32,6 +35,14 @@ func _ready():
 		add_child(character)
 		character.update(character_data)
 		characters[character_data["name"]] = character
+		
+		
+		var card = CHARACTER_CARD.instantiate()
+		card.character_name = character_data["name"]
+		AssetCache.get_sprite("https://www.artifactsmmo.com/images/characters/"+character_data["skin"]+".png", func(texture: ImageTexture):
+			card.character_texture = texture
+			party_container.add_child(card)
+		)
 		
 	var ws_status = socket.connect_to_url(websocket_url)
 	if ws_status == OK:

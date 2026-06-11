@@ -8,7 +8,7 @@
 [sub_resource type="TileSet" id="TileSet_c7utm"]
 tile_size = Vector2i(224, 224)
 
-[node name="World_map" type="Node2D" unique_id=2106827703]
+[node name="World_map" type="Node2D" unique_id=1874458810]
 script = ExtResource("1_s7p0c")
 
 [node name="Overworld" type="TileMapLayer" parent="." unique_id=927668895]
@@ -17,10 +17,36 @@ script = ExtResource("6_hcdk5")
 
 [node name="HTTPRequest" type="HTTPRequest" parent="Overworld" unique_id=1986289274]
 
-[node name="Account" type="Node2D" parent="." unique_id=1434591621]
+[node name="Account" type="Node" parent="." unique_id=420157286]
 script = ExtResource("7_7kjee")
 
 [node name="HTTPRequest" type="HTTPRequest" parent="Account" unique_id=1623498017]
+
+[node name="PartyLayer" type="CanvasLayer" parent="Account" unique_id=1387476196]
+
+[node name="PartyLayerBackground" type="ColorRect" parent="Account/PartyLayer" unique_id=1922462734]
+custom_minimum_size = Vector2(610, 160)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(10, 0)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0, 0, 0, 0.16470589)
+
+[node name="PartyHContainer" type="HBoxContainer" parent="Account/PartyLayer" unique_id=1591600487]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(10, 0)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1032867834]
 script = ExtResource("8_s7p0c")

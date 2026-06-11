@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://ckvqeak5gb8be"]
+
+[ext_resource type="Script" uid="uid://c1x7wrxw1cfr4" path="res://account/character/character_party_element.gd" id="1_felfo"]
+
+[node name="CharacterPartyElement" type="VBoxContainer" unique_id=512021156]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_felfo")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=707971273]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="." unique_id=1255742187]
+layout_mode = 2
